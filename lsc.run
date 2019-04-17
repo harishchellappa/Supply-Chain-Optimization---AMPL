@@ -1,0 +1,12 @@
+reset;
+option solver cplex;
+#option cplex_options 'timing 4';    # For displaying the Input, Output and Solve Times in Ticks. Put 'timing 1' foe getting the value in seconds
+option cplex_options 'sensitivity';  # For performing sensitivity analysis
+#option 'timelimit= 0.00000023728752'; # For terminating the search after the given amount of time         
+option presolve 0; 
+model lsc.mod;
+data lsc.dat;
+#expand z,initial_inventory,inventory,production_limit;
+solve;
+display z,x,s>'lsc.out';
+display production_limit.up, production_limit.current, production_limit.down>>'lsc.out';
